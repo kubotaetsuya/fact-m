@@ -40,7 +40,16 @@
     </div>
     <%= f.password_field :password_confirmation, class:"input-default", id:"password-confirmation", placeholder:"同じパスワードを入力して下さい" %>
   </div>
-  <div>
+<div>
+
+    <div>
+      <label>ステータス</label>
+      <span>必須</span>
+    </div>
+  <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {class:"genre-select"}) %>
+    <p>当てはまるものがない場合はその他で入力してください。</p>
+  </div>
+
   <div>
     <div>
       <label>生年月日</label>
