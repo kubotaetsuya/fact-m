@@ -1,7 +1,15 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    @tags = ActsAsTaggableOn::Tag.all
+    # タグの一覧表示
+    if params[:tag]
+      @posts = Post.tagged_with(params[:tag])
+      # タグ検索時にそのタグずけしているものを表示
+    else
+      @posts = Post.all
+    end
+    
   end
 
   def new
@@ -9,7 +17,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    if @post = Post.new(post_params)
+    @post = Post.new(post_params)
+    if @post.save
       redirect_to root_path
     else
       render :new
@@ -23,7 +32,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :text)
+    params.require(:post).permit(:title, :text, :tag_list).merge(user_id: current_user.id)
   end
   
 end
