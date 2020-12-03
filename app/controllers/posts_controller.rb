@@ -9,7 +9,10 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
-    
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -26,7 +29,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-
+    post = Post.find(params[:id])
+    post.destroy
   end
 
   private

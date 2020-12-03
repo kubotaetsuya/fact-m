@@ -2,7 +2,9 @@
 
 <% @posts.each do |post| %>
   <div>
+    <%= link_to  post_path(post.id) do %>
     <h2><%= post.title %></h2>
+    <% end %>
     <P><%= post.text %></P>
     <%= post.tag_list %>
   </div>
