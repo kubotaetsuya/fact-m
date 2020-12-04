@@ -1,5 +1,12 @@
+<%= render "shared/header" %>
 <div>
     <h2><%= @post.title %></h2>
     <P><%= @post.text %></P>
     <%= @post.tag_list %>
 </div>
+
+<% if user_signed_in? && current_user.id == @post.user.id %>
+    <%= link_to '記事の編集', edit_post_path, method: :get %>
+    <p>or</p>
+    <%= link_to '削除', "/posts/#{@post.id}", method: :delete %>
+<% end %>
