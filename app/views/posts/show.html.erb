@@ -9,4 +9,5 @@
     <%= link_to '記事の編集', edit_post_path, method: :get %>
     <p>or</p>
     <%= link_to '削除', "/posts/#{@post.id}", method: :delete %>
+  <% else %>
 <% end %>

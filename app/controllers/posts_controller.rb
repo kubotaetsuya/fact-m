@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_item, only: [:edit, :show, :update]
+  before_action :set_item, only: [:edit, :show, :update, :destroy]
 
   def index
     @tags = ActsAsTaggableOn::Tag.all
@@ -29,8 +29,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    if @post.destroy
+      redirect_to root_path
+    else
+      redirect_to show
+    end
   end
 
   def edit
