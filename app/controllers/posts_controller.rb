@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :set_item, only: [:edit, :show, :update]
 
   def index
     @tags = ActsAsTaggableOn::Tag.all
@@ -9,7 +10,9 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
-    
+  end
+
+  def show
   end
 
   def new
@@ -26,7 +29,19 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    post = Post.find(params[:id])
+    post.destroy
+  end
 
+  def edit
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   private
@@ -35,4 +50,8 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :text, :tag_list).merge(user_id: current_user.id)
   end
   
+  def set_item
+    @post = Post.find(params[:id])
+  end
+
 end
